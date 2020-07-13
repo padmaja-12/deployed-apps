@@ -40,7 +40,7 @@ app.get("/",(req,res) => {
 
 
 var post,movie;
-app.get("/search",isLoggedIn, (req,res) => {
+app.get("/search", (req,res) => {
      var url2 = "https://api.themoviedb.org/3/movie/upcoming?api_key=1510cae89a9c50b52ba4e6a2f5db4dbe&language=en-US&page=1";
      var ur = "https://api.themoviedb.org/3/movie/top_rated?api_key=1510cae89a9c50b52ba4e6a2f5db4dbe&language=en-US&page=1";
      fetch(url2).then(function (response) {
@@ -70,7 +70,7 @@ app.get("/search",isLoggedIn, (req,res) => {
 	console.log(error);
 });
 })
-app.get("/search/result",isLoggedIn,(req,res)=>{
+app.get("/search/result",(req,res)=>{
     var query = req.query.search
     var url = "https://api.themoviedb.org/3/search/movie?api_key=1510cae89a9c50b52ba4e6a2f5db4dbe&query="+query
       request(url,(error,response,body)=>{
@@ -80,7 +80,7 @@ app.get("/search/result",isLoggedIn,(req,res)=>{
           }
       })
 });
-app.get("/search/main",isLoggedIn,(req,res)=>{
+app.get("/search/main",(req,res)=>{
     var id = req.query.id
     var url1 = "https://api.themoviedb.org/3/movie/"+ id + "?api_key=1510cae89a9c50b52ba4e6a2f5db4dbe&append_to_response=videos,images,reviews"
     var u = "https://api.themoviedb.org/3/movie/" + id + "/similar?api_key=1510cae89a9c50b52ba4e6a2f5db4dbe"
@@ -111,45 +111,9 @@ app.get("/search/main",isLoggedIn,(req,res)=>{
     });
 });
 
-app.get("/register",(req,res) => {
-     res.render("register");
-});
 
-app.post("/register",(req,res)=> {
-    var newUser = new User({username : req.body.username});
-    User.register(newUser,req.body.password, (err,user) => {
-        if(err){
-            req.flash("error",err.message)
-            return res.render("register");
-        }
-        passport.authenticate("local")(req,res, () => {
-            req.flash("success","Welcome to this page  "+ user.username)
-            res.redirect("/search");
-        });
-    });
-});
-app.get("/login",(req,res) => {
-    res.render("login");
-});
 
-app.post("/login",passport.authenticate("local",{
-    successRedirect : "/search",   
-    failureRedirect : "/login"
-}),(req,res) => {
-});
 
-app.get("/logout",(req,res) => {
-    req.logout();
-    req.flash("success","You have been logged out!!")
-    res.redirect("/");
-});
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    req.flash("error", "You Need To Login To Move Ahead!");
-    res.redirect("/login");
-}
 app.listen(process.env.PORT || 3000, function(){
     console.log("MovieApp sever is up....PORT: 3000");
 });
