@@ -150,6 +150,6 @@ function isLoggedIn(req,res,next){
     req.flash("error", "You Need To Login To Move Ahead!");
     res.redirect("/login");
 }
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("MovieApp sever is up....PORT: 3000");
 });
