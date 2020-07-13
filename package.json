@@ -12,6 +12,7 @@
   "author": "Padmaja Jha",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.3",
@@ -23,5 +24,14 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1",
     "request": "^2.88.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/padmaja-12/deployed-apps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/padmaja-12/deployed-apps/issues"
+  },
+  "homepage": "https://github.com/padmaja-12/deployed-apps#readme"
 }
